@@ -1,6 +1,6 @@
 # Project Name
 
-**Author**: Rebecca Peterson, Tammy Do, Williams Argenal
+**Author**: Rebecca (Becky) Peterson, Tammy Do, Williams Argenal
 **Version**: 1.0.0 (increment the patch/fix version number if you make more commits past your first submission)
 
 ## Overview
