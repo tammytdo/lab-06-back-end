@@ -1,0 +1,23 @@
+{
+  "name": "lab-06-back-end",
+  "version": "1.0.0",
+  "description": "apt that gets data for city explorer",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tammytdo/lab-06-back-end.git"
+  },
+  "author": "williams argenal tammy do rebecca peterson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tammytdo/lab-06-back-end/issues"
+  },
+  "homepage": "https://github.com/tammytdo/lab-06-back-end#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
