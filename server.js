@@ -25,16 +25,20 @@ app.use('*', (request, response) => {
 })
 
 function searchLatLng(frontEndQuery) {
-// this.long_name = long_name,
-// this.short_name = short_name,
-// this.type = types
-  let test = {
-    'search_query': 'seattle',
-    'formatted_query': 'Seattle, WA, USA',
-    'latitude': '47.606210',
-    'longitude': '-122.332071'
-  }
-  return test;
+ // take the data from the front end, as the searched for location ('berlin')
+  const search_query = frontEndQuery;
+
+ // Go out and get data, tomorrow
+  const testData = require('./data/geo.json'); // go get some other data
+
+  const long_name = testData.results[0].formatted_address;
+  const short_name = testData.results[0].short_name;
+  const types = testData.results[0].types;
+
+  const responseObject = { search_query, long_name, short_name, types };
+
+  return responseObject;
+
 }
 
 //server start
