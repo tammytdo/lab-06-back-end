@@ -1,18 +1,31 @@
 'use strict';
 
-// immediate import and configuration
+//==========================================
+// Configure
+//==========================================
+
 require('dotenv').config();
 
-// global constants
+//==========================================
+// Global Variables
+//==========================================
+
 const PORT = process.env.PORT || 3000;
 const express = require('express');
 const cors = require('cors');
+const superagent = require('superagent');
 
-// server definition
+//==========================================
+// Server Definition
+//==========================================
+
 const app = express();
 app.use(cors());
 
-// what the server does
+//==========================================
+// Server
+//==========================================
+
 //the route
 //request = data from query. example, from a front end query
 //can test in localhost:3000/location to verify
@@ -26,6 +39,10 @@ app.get('/weather', searchWeather);
 app.use('*', (request, response) => {
   response.send('Our server runs.');
 })
+
+//==========================================
+// Helper Functions
+//==========================================
 
 function searchLatLng(request, response) {
   // take the data from the front end, as the searched for location ('berlin')
@@ -48,12 +65,14 @@ function searchWeather(request, response) {
   response.send(weeklyWeatherArray);
 }
 
+//==========================================
+// Constructors
+//==========================================
+
 function DailyWeather(forecast, time) {
   this.forecast = forecast;
-  this.time = new Date((time * 1000)).toString().slice(15);
+  this.time = new Date(time * 1000).toString().slice(0, 15);
 }
-
-
 
 function Location(query, data) {
   this.search_query = query;
@@ -61,6 +80,8 @@ function Location(query, data) {
   this.latitude = data.results[0].geometry.location.lat;
   this.longitude = data.results[0].geometry.location.lng;
 }
+
+//==========================================
 
 //server start
 app.listen(PORT, () => {
