@@ -4,7 +4,7 @@
 require('dotenv').config();
 
 // global constants
-const PORT = process.env.PORT || 3000 ;
+const PORT = process.env.PORT || 3000;
 const express = require('express');
 const cors = require('cors');
 
@@ -17,7 +17,7 @@ app.use(cors());
 //request = data from query. example, from a front end query
 //can test in localhost:3000/location to verify
 app.get('/location', (request, response) => {
-  response.send( searchLatLng(request.query.data) );
+  response.send(searchLatLng(request.query.data));
 })
 
 app.use('*', (request, response) => {
@@ -25,10 +25,10 @@ app.use('*', (request, response) => {
 })
 
 function searchLatLng(frontEndQuery) {
- // take the data from the front end, as the searched for location ('berlin')
+  // take the data from the front end, as the searched for location ('berlin')
   const search_query = frontEndQuery;
 
- // Go out and get data, tomorrow
+  // Go out and get data, tomorrow
   const testData = require('./data/geo.json'); // go get some other data
 
   const long_name = testData.results[0].formatted_address;
@@ -42,6 +42,6 @@ function searchLatLng(frontEndQuery) {
 }
 
 //server start
-app.listen(PORT, ()=> {
+app.listen(PORT, () => {
   console.log(`app is up on PORT ${PORT}`)
 })
