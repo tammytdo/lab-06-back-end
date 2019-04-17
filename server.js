@@ -16,17 +16,15 @@ app.use(cors());
 //the route
 //request = data from query. example, from a front end query
 //can test in localhost:3000/location to verify
-app.get('/location', (request, response) => {
-  response.send( searchLatLng(request.query.data) );
-})
+app.get('/location', searchLatLng(request, response));
 
 app.use('*', (request, response) => {
   response.send('Our server runs.');
 })
 
-function searchLatLng(frontEndQuery) {
+function searchLatLng(request, response) {
  // take the data from the front end, as the searched for location ('berlin')
-  const search_query = frontEndQuery;
+  const search_query = request.query.data;
 
  // Go out and get data, tomorrow
   const testData = require('./data/geo.json'); // go get some other data
