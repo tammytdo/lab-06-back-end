@@ -56,12 +56,8 @@ function searchLatLng(request, response) {
 
 function searchWeather(request, response) {
   const weatherData = require('./data/darksky.json');
-  const weeklyWeatherArray = [];
-  for (let i = 0; i < 8; i++) {
-    const forecast = weatherData.daily.data[i].summary;
-    const time = weatherData.daily.data[i].time;
-    weeklyWeatherArray.push(new DailyWeather(forecast, time));
-  }
+  const weeklyWeatherArray = weatherData.daily.data.map(dayObj => new DailyWeather(dayObj.summary, dayObj.time));
+
   response.send(weeklyWeatherArray);
 }
 
