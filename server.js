@@ -29,11 +29,11 @@ function searchLatLng(request, response) {
  // Go out and get data, tomorrow
   const testData = require('./data/geo.json'); // go get some other data
 
-  const long_name = testData.results[0].formatted_address;
-  const short_name = testData.results[0].short_name;
-  const types = testData.results[0].types;
+  const formatted_query = testData.results[0].formatted_address;
+  const latitude = testData.results[0].geometry.location.lat;
+  const longitude = testData.results[0].geometry.location.lng;
 
-  const responseObject = { search_query, long_name, short_name, types };
+  const responseObject = { search_query, formatted_query, latitude, longitude };
 
   return responseObject;
 
