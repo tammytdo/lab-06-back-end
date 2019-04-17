@@ -47,11 +47,17 @@ app.use('*', (request, response) => {
 function searchLatLng(request, response) {
   // take the data from the front end, as the searched for location ('berlin')
   const query = request.query.data;
-  // Go out and get data, tomorrow
-  const testData = require('./data/geo.json'); // go get some other data
+  const geocodeData = `https://maps.googleapis.com/maps/api/geocode/json?address=${query}&key=${process.env.GEOCODE_API_KEY}`;
+  console.log('in search');
 
-  const responseObject = new Location(query, testData);
-  response.send(responseObject);
+  superagent.get(geocodeData).then(result => {
+    console.log(result);
+    const first = result.body.results[0];
+    const responseObject = new Location(query, first);
+    console.log(responseObject);
+    response.send(responseObject);
+  })
+
 }
 
 function searchWeather(request, response) {
@@ -72,9 +78,9 @@ function DailyWeather(forecast, time) {
 
 function Location(query, data) {
   this.search_query = query;
-  this.formatted_query = data.results[0].formatted_address;
-  this.latitude = data.results[0].geometry.location.lat;
-  this.longitude = data.results[0].geometry.location.lng;
+  this.formatted_query = data.formatted_address;
+  this.latitude = data.geometry.location.lat;
+  this.longitude = data.geometry.location.lng;
 }
 
 //==========================================
