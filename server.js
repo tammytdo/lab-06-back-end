@@ -27,21 +27,22 @@ app.use('*', (request, response) => {
 
 function searchLatLng(request, response) {
   // take the data from the front end, as the searched for location ('berlin')
-  console.log('proof of life B');
-  const search_query = request.query.data;
+  const query = request.query.data;
 
   // Go out and get data, tomorrow
   const testData = require('./data/geo.json'); // go get some other data
 
-  const formatted_query = testData.results[0].formatted_address;
-  const latitude = testData.results[0].geometry.location.lat;
-  const longitude = testData.results[0].geometry.location.lng;
 
-  const responseObject = { search_query, formatted_query, latitude, longitude };
-  console.log(responseObject);
-
+  const responseObject = new Location(query, testData);
 
   response.send(responseObject);
+}
+
+function Location(query, data) {
+  this.search_query = query;
+  this.formatted_query = data.results[0].formatted_address;
+  this.latitude = data.results[0].geometry.location.lat;
+  this.longitude = data.results[0].geometry.location.lng;
 }
 
 //server start
