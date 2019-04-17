@@ -16,29 +16,32 @@ app.use(cors());
 //the route
 //request = data from query. example, from a front end query
 //can test in localhost:3000/location to verify
-app.get('/location', (request, response) => {
-  response.send( searchLatLng(request.query.data) );
-})
 
+// Switched app.get from an anonymous function to a named callback. 
+app.get('/location', searchLatLng);
+
+// Standard response for when a route that does not exist is accessed. 
 app.use('*', (request, response) => {
   response.send('Our server runs.');
 })
 
-function searchLatLng(frontEndQuery) {
- // take the data from the front end, as the searched for location ('berlin')
-  const search_query = frontEndQuery;
+function searchLatLng(request, response) {
+  // take the data from the front end, as the searched for location ('berlin')
+  console.log('proof of life B');
+  const search_query = request.query.data;
 
- // Go out and get data, tomorrow
+  // Go out and get data, tomorrow
   const testData = require('./data/geo.json'); // go get some other data
 
-  const long_name = testData.results[0].formatted_address;
-  const short_name = testData.results[0].short_name;
-  const types = testData.results[0].types;
+  const formatted_query = testData.results[0].formatted_address;
+  const latitude = testData.results[0].geometry.location.lat;
+  const longitude = testData.results[0].geometry.location.lng;
 
-  const responseObject = { search_query, long_name, short_name, types };
+  const responseObject = { search_query, formatted_query, latitude, longitude };
+  console.log(responseObject);
 
-  return responseObject;
 
+  response.send(responseObject);
 }
 
 //server start
